@@ -1057,6 +1057,12 @@
                     
                     <!-- Entry cards will be dynamically added here -->
                 </div>
+                <!-- Daily Quote Card -->
+                <div id="daily-quote-card" class="glass" style="margin-bottom:24px;padding:22px 28px;border-radius:18px;box-shadow:var(--shadow);border:1px solid var(--card-border-color);background:var(--card-bg);color:var(--main-text);text-align:center;">
+                    <div style="font-size:1.15em;font-weight:600;margin-bottom:8px;">Daily Inspiration</div>
+                    <div id="daily-quote-text" style="font-size:1.05em;font-style:italic;line-height:1.5;"></div>
+                    <div id="daily-quote-author" style="margin-top:8px;font-size:0.95em;color:var(--gray);"></div>
+                </div>
             </div>
             
             <!-- Add Entry Tab -->
@@ -1253,62 +1259,98 @@
         const auth = firebase.auth();
         const database = firebase.database();
 
-        // DOM Elements
-        const authScreen = document.getElementById('auth-screen');
-        const appContent = document.getElementById('app-content');
-        const timelineTab = document.getElementById('timeline-tab');
-        const addEntryTab = document.getElementById('add-entry-tab');
-        const profileTab = document.getElementById('profile-tab');
-        const navItems = document.querySelectorAll('.nav-item');
-        const currentDateEl = document.getElementById('current-date');
-        const currentDateText = document.getElementById('current-date-text');
-        const prevDateBtn = document.getElementById('prev-date');
-        const nextDateBtn = document.getElementById('next-date');
-        const newEntryInput = document.getElementById('new-entry');
-        const entryDateInput = document.getElementById('entry-date');
-        const entryTimeInput = document.getElementById('entry-time');
-        const entryMoodInput = document.getElementById('entry-mood');
-        const entryWeatherInput = document.getElementById('entry-weather');
-        const entryTagsInput = document.getElementById('entry-tags');
-        const addEntryBtn = document.getElementById('add-entry-btn');
-        const timeline = document.querySelector('.timeline');
-        const noEntries = document.getElementById('no-entries');
-        const toast = document.getElementById('toast');
-        const loginBtn = document.getElementById('login-btn');
-        const registerBtn = document.getElementById('register-btn');
-        const googleLoginBtn = document.getElementById('google-login-btn');
-        const logoutBtn = document.getElementById('logout-btn');
-        const emailInput = document.getElementById('email');
-        const passwordInput = document.getElementById('password');
-        const registerNameInput = document.getElementById('register-name');
-        const registerEmailInput = document.getElementById('register-email');
-        const registerPasswordInput = document.getElementById('register-password');
-        const registerConfirmInput = document.getElementById('register-confirm');
-        const registerThemeInput = document.getElementById('register-theme');
-        const profileThemeInput = document.getElementById('profile-theme');
-        const profileAvatar = document.getElementById('profile-avatar');
-        const profileName = document.getElementById('profile-name');
-        const profileEmail = document.getElementById('profile-email');
-        const entriesCount = document.getElementById('entries-count');
-        const streakCount = document.getElementById('streak-count');
-        const sinceCount = document.getElementById('since-count');
-        const displayNameInput = document.getElementById('display-name');
-        const saveProfileBtn = document.getElementById('save-profile-btn');
-        const avatarUpload = document.getElementById('avatar-upload');
-        const openCalendarBtn = document.getElementById('open-calendar');
-        const calendarModal = document.getElementById('calendar-modal');
-        const closeModalBtn = document.querySelector('.close-modal');
-        const calendarGrid = document.getElementById('calendar-grid');
-        const calendarMonthEl = document.getElementById('calendar-month');
-        const prevMonthBtn = document.getElementById('prev-month');
-        const nextMonthBtn = document.getElementById('next-month');
-        const loginForm = document.getElementById('login-form');
-        const registerForm = document.getElementById('register-form');
-        const loginToggle = document.getElementById('login-toggle');
-        const registerToggle = document.getElementById('register-toggle');
-        const showLogin = document.getElementById('show-login');
-        const showRegister = document.getElementById('show-register');
-        const particlesContainer = document.getElementById('particles');
+    // DOM Elements
+    const authScreen = document.getElementById('auth-screen');
+    const appContent = document.getElementById('app-content');
+    const timelineTab = document.getElementById('timeline-tab');
+    const addEntryTab = document.getElementById('add-entry-tab');
+    const profileTab = document.getElementById('profile-tab');
+    const navItems = document.querySelectorAll('.nav-item');
+    const currentDateEl = document.getElementById('current-date');
+    const currentDateText = document.getElementById('current-date-text');
+    const prevDateBtn = document.getElementById('prev-date');
+    const nextDateBtn = document.getElementById('next-date');
+    const newEntryInput = document.getElementById('new-entry');
+    const entryDateInput = document.getElementById('entry-date');
+    const entryTimeInput = document.getElementById('entry-time');
+    const entryMoodInput = document.getElementById('entry-mood');
+    const entryWeatherInput = document.getElementById('entry-weather');
+    const entryTagsInput = document.getElementById('entry-tags');
+    const addEntryBtn = document.getElementById('add-entry-btn');
+    const timeline = document.querySelector('.timeline');
+    const noEntries = document.getElementById('no-entries');
+    const toast = document.getElementById('toast');
+    const loginBtn = document.getElementById('login-btn');
+    const registerBtn = document.getElementById('register-btn');
+    const googleLoginBtn = document.getElementById('google-login-btn');
+    const logoutBtn = document.getElementById('logout-btn');
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+    const registerNameInput = document.getElementById('register-name');
+    const registerEmailInput = document.getElementById('register-email');
+    const registerPasswordInput = document.getElementById('register-password');
+    const registerConfirmInput = document.getElementById('register-confirm');
+    const registerThemeInput = document.getElementById('register-theme');
+    const profileThemeInput = document.getElementById('profile-theme');
+    const profileAvatar = document.getElementById('profile-avatar');
+    const profileName = document.getElementById('profile-name');
+    const profileEmail = document.getElementById('profile-email');
+    const entriesCount = document.getElementById('entries-count');
+    const streakCount = document.getElementById('streak-count');
+    const sinceCount = document.getElementById('since-count');
+    const displayNameInput = document.getElementById('display-name');
+    const saveProfileBtn = document.getElementById('save-profile-btn');
+    const avatarUpload = document.getElementById('avatar-upload');
+    const openCalendarBtn = document.getElementById('open-calendar');
+    const calendarModal = document.getElementById('calendar-modal');
+    const closeModalBtn = document.querySelector('.close-modal');
+    const calendarGrid = document.getElementById('calendar-grid');
+    const calendarMonthEl = document.getElementById('calendar-month');
+    const prevMonthBtn = document.getElementById('prev-month');
+    const nextMonthBtn = document.getElementById('next-month');
+    const loginForm = document.getElementById('login-form');
+    const registerForm = document.getElementById('register-form');
+    const loginToggle = document.getElementById('login-toggle');
+    const registerToggle = document.getElementById('register-toggle');
+    const showLogin = document.getElementById('show-login');
+    const showRegister = document.getElementById('show-register');
+    const particlesContainer = document.getElementById('particles');
+    // Daily Quote Card Elements
+    const dailyQuoteText = document.getElementById('daily-quote-text');
+    const dailyQuoteAuthor = document.getElementById('daily-quote-author');
+        // Daily Quotes Array
+        const DAILY_QUOTES = [
+            { text: "The best way to get started is to quit talking and begin doing.", author: "Walt Disney" },
+            { text: "Success is not in what you have, but who you are.", author: "Bo Bennett" },
+            { text: "The harder you work for something, the greater you'll feel when you achieve it.", author: "Unknown" },
+            { text: "Dream bigger. Do bigger.", author: "Unknown" },
+            { text: "Don't watch the clock; do what it does. Keep going.", author: "Sam Levenson" },
+            { text: "Great things never come from comfort zones.", author: "Unknown" },
+            { text: "Push yourself, because no one else is going to do it for you.", author: "Unknown" },
+            { text: "Success doesn't just find you. You have to go out and get it.", author: "Unknown" },
+            { text: "The only place where success comes before work is in the dictionary.", author: "Vidal Sassoon" },
+            { text: "Don't stop when you're tired. Stop when you're done.", author: "Marilyn Monroe" }
+        ];
+
+        // Show daily quote based on date
+        function showDailyQuote() {
+            const today = new Date();
+            // Use day of year for deterministic daily quote
+            const start = new Date(today.getFullYear(), 0, 0);
+            const diff = today - start;
+            const oneDay = 1000 * 60 * 60 * 24;
+            const dayOfYear = Math.floor(diff / oneDay);
+            const idx = dayOfYear % DAILY_QUOTES.length;
+            const quote = DAILY_QUOTES[idx];
+            if (dailyQuoteText && dailyQuoteAuthor) {
+                dailyQuoteText.textContent = `"${quote.text}"`;
+                dailyQuoteAuthor.textContent = `— ${quote.author}`;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            showDailyQuote();
+        });
 
         // --- Theme Logic ---
         const THEMES = {
