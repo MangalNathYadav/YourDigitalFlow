@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>Contact Form</h2>
+  <form method="POST">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" placeholder="Enter your name"><br><br>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" placeholder="Enter your email"><br><br>
+
+    <button type="submit">Submit</button>
+  </form>
+
+  <p style="color:green;">{{ message }}</p>
+
+  <!-- Auto-focus injected here -->
+  {{ focus|safe }}
+{% endblock %}
