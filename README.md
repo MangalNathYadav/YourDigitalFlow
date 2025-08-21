@@ -1,13 +1,7 @@
 # Your Digital Flow - Timeline Diary App
-<div align="center">
-  <a href="https://shipwrecked.hackclub.com/?t=ghrm" target="_blank">
-    <img src="https://hc-cdn.hel1.your-objectstorage.com/s/v3/739361f1d440b17fc9e2f74e49fc185d86cbec14_badge.png" 
-         alt="This project is part of Shipwrecked, the world's first hackathon on an island!" 
-         style="width: 35%;">
-  </a>
-</div>
 
-A beautiful, responsive web application that allows users to maintain a personal diary with a glass-morphism UI design. Built with HTML, CSS, and JavaScript with Firebase backend for authentication and data storage.
+
+A beautiful, responsive web application that allows users to maintain a personal diary with a glass-morphism UI design. Built with HTML, CSS, and modular JavaScript with Firebase backend for authentication and data storage. Features include diary entries with mood tracking, calendar integration, theme customization, and diary exports.
 
 ![Your Digital Flow App](https://i.ibb.co/placeholder-image/your-digital-flow.jpg)
 
@@ -21,6 +15,10 @@ A beautiful, responsive web application that allows users to maintain a personal
 - **Mood Tracking**: Track your mood with each diary entry
 - **Weather Integration**: Record the weather when making entries
 - **Tag System**: Organize entries with custom tags
+- **Export Functionality**: Export monthly diary entries as images
+- **Daily Inspiration**: Motivational quotes to inspire your daily entries
+- **Theme Customization**: Change the app's theme from your profile
+- **User Stats**: Track your entry count, streak, and usage statistics
 - **Responsive Design**: Optimized for both desktop and mobile devices
 - **Bottom Navigation**: Easy navigation on mobile devices
 
@@ -38,11 +36,12 @@ The app features a mobile-optimized experience with:
   - HTML5
   - CSS3 (with glass-morphism effects)
   - Vanilla JavaScript
-  - Font Awesome icons
+  - Font Awesome icons 6.4.0
+  - HTML2Canvas (for diary exports)
 
 - **Backend**:
-  - Firebase Authentication
-  - Firebase Realtime Database
+  - Firebase Authentication 8.10.0
+  - Firebase Realtime Database 8.10.0
 
 ## 🚀 Getting Started
 
@@ -64,7 +63,7 @@ The app features a mobile-optimized experience with:
    - Enable Email/Password and Google authentication methods
    - Create a Realtime Database
    - Get your Firebase configuration (apiKey, authDomain, etc.)
-   - Replace the Firebase configuration in the `index.html` file with your own:
+   - Replace the Firebase configuration in the `js/config.js` file with your own:
 
    ```javascript
    const firebaseConfig = {
@@ -92,6 +91,7 @@ The app features a mobile-optimized experience with:
    - View your diary entries in chronological order
    - Navigate between dates using the date controls
    - Open the calendar to jump to specific dates
+   - Read daily inspirational quotes
 
 3. **Adding Entries**:
    - Click "Add Entry" in the bottom navigation
@@ -99,14 +99,27 @@ The app features a mobile-optimized experience with:
    - Submit to save your entry
 
 4. **Profile Management**:
-   - View your profile statistics
+   - View your profile statistics (entries count, streak, days since starting)
    - Update your display name
    - Change your profile picture
+   - Choose from different app themes
    - Log out from the application
+
+5. **Exporting Your Diary**:
+   - Access the export feature from your profile page
+   - Select a month to export
+   - Download your diary entries as a beautifully formatted image
+   - Share or save your memories
 
 ## 🎨 Customization
 
-You can customize the app by modifying the CSS variables in the `:root` selector:
+The app comes with built-in themes that users can select from their profile page:
+- **Glass** (Default): Beautiful glass-morphic interface with blur effects
+- **Light**: A clean, bright theme for daytime use
+- **Dark**: Easy on the eyes for nighttime journaling
+- **Pastel**: Soft colors for a gentle aesthetic
+
+Developers can customize the app further by modifying the CSS variables in the `:root` selector:
 
 ```css
 :root {
@@ -114,6 +127,10 @@ You can customize the app by modifying the CSS variables in the `:root` selector
     --primary-dark: #3a56d4;
     --secondary: #7209b7;
     --accent: #4cc9f0;
+    --main-text: #ffffff;
+    --card-text: #ffffff;
+    --card-bg: rgba(255, 255, 255, 0.15);
+    --card-border-color: rgba(255, 255, 255, 0.15);
     /* more variables... */
 }
 ```
@@ -124,24 +141,44 @@ You can customize the app by modifying the CSS variables in the `:root` selector
 your-digital-flow/
 ├── index.html          # Main HTML file
 ├── css/                # Stylesheet directory
-│   ├── styles.css      # Main styles
-│   └── profile-styles.css  # Profile-specific styles
+│   └── styles.css      # All CSS styles
 ├── js/                 # JavaScript directory
 │   ├── auth.js         # Authentication logic
-│   ├── db.js           # Database operations
-│   ├── ui.js           # UI manipulation
-│   └── utils.js        # Utility functions
+│   ├── calendar.js     # Calendar functionality
+│   ├── config.js       # Firebase configuration
+│   ├── entries.js      # Entry management
+│   ├── export.js       # Diary export functionality
+│   ├── main.js         # Core app functionality
+│   └── profile.js      # Profile management
 └── README.md           # Project documentation
 ```
 
 ## 📱 Mobile Navigation Implementation
 
 The bottom navigation in the mobile view consists of three main sections:
-1. **Timeline**: View entries chronologically
-2. **Add Entry**: Quick access to add new diary entries
-3. **Profile**: Access user profile and settings
+1. **Timeline**: View entries chronologically and read daily inspiration quotes
+2. **Add Entry**: Quick access to add new diary entries with mood, weather, and tags
+3. **Profile**: Access user profile, statistics, theme settings, and export functionality
 
-Each nav item in the bottom bar switches the active tab content when clicked.
+Each nav item in the bottom bar switches the active tab content when clicked with smooth animations.
+
+## 🧩 Modular Code Structure
+
+The codebase has been reorganized into a modular structure for better maintainability:
+
+- **config.js**: Contains Firebase configuration settings
+- **main.js**: Core application functionality and initialization
+- **auth.js**: Handles user authentication (login, register, Google sign-in)
+- **entries.js**: Manages diary entry creation, retrieval, and display
+- **profile.js**: User profile management and theme customization
+- **calendar.js**: Calendar view and date selection functionality
+- **export.js**: Diary export functionality using HTML2Canvas
+
+This modular approach allows for:
+- Easier maintenance and updates
+- Better code organization
+- Separation of concerns
+- Improved readability and debugging
 
 ## 🔒 Security
 
@@ -161,6 +198,8 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - Glass UI inspiration from modern design trends
 - Firebase for authentication and database services
 - Font Awesome for the beautiful icons
+- HTML2Canvas for diary export functionality
+- QuoteAPI for daily inspirational quotes
 
 ---
 
